@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{
+  user-select: none;
+}
+
+
+.host-light{
+  font-family: "Host Grotesk";
+  font-weight: 300;
+}
+.host-regular{
+  font-family: "Host Grotesk";
+  font-weight: 500;
+}
+.host-semibold{
+  font-family: "Host Grotesk";
+  font-weight: 600;
+}
+.host-bold{
+  font-family: "Host Grotesk";
+  font-weight: 800;
+}
+
+.hero{
+  background: url(/img/hero.jpeg) no-repeat center top;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+.fade-text span {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  word-spacing: 50px !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.no-scrollbar {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer 10+ */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+
+/* styles.css or global.css */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+ 
