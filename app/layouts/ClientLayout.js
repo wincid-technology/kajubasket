@@ -1,10 +1,15 @@
-// // app/layouts/ClientLayout.js
+// app/layouts/ClientLayout.js
 
-// "use client"; // Ensures this is a client-side component
+"use client";
+import { SessionProvider } from "next-auth/react";
+
+// Ensures this is a client-side component
 
 
-// export function ClientLayout({ children }) {
-//   return (
-//       {children}
-//   );
-// }
+export function ClientLayout({ children }) {
+  return (
+    <SessionProvider >
+      {children}
+    </SessionProvider>
+  );
+}

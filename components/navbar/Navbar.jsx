@@ -12,17 +12,18 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { PiSignInBold } from "react-icons/pi";
 import { FiUser, FiUserPlus } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
+import { signOut, useSession } from 'next-auth/react';
+import { toast } from "react-hot-toast"; // Import toast
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [user, setUser] = useState(null);
   const dropdownRef = useRef(null);
 
-
+  const { data: session } = useSession();
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,9 +38,17 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    signOut();
+    toast.success("You have been logged out successfully!");
+  };
+
+
 
   return (
+    
     <div className="w-full">
+      
       <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[50px] max-w-screen tracking-wide relative z-50 font-semibold">
         <div className="flex flex-wrap items-center justify-between gap-4 w-full">
           <Link href="/">
@@ -61,24 +70,10 @@ const Navbar = () => {
               onClick={toggleMenu}
               className="lg:hidden fixed top-2 right-4 shadow-md rounded-full bg-white p-3  z-[2000]"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 fill-[#130e3f]" viewBox="0 0 320.591 320.591">
-                <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" />
-                <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" />
-              </svg>
+              <HiMenuAlt3 className="text-[#130e3f] size-7 md:size-8" />
             </button>
 
             <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md">
-              <li className="mb-6 hidden max-lg:block">
-                <Link href="/">
-                  <Image
-                    src="/logos/logo.png"
-                    height={10000}
-                    width={10000}
-                    alt="Logo"
-                    className="w-32"
-                  />
-                </Link>
-              </li>
               {navigations.map((nav, i) => (
                 <li key={i} className="max-lg:border-b max-lg:py-3 px-3">
                   <Link
@@ -100,31 +95,46 @@ const Navbar = () => {
                 onClick={toggleDropdown}
                 className="flex items-center bg-transparent text-[#333] text-sm group"
               >
-                {/* Show user's profile image or default avatar */}
-                <FaUserAlt className="text-[#130e3f] size-5 group-hover:text-[#d0721a] sm:size-6 transition-colors duration-300" />
+                {session?.user?.image ? (
+                  <Image
+                    src={session.user.image}
+                    alt="User Profile"
+                    className="rounded-full object-cover w-8 h-8 sm:w-10 sm:h-10"
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <FaUserAlt className="text-[#130e3f] size-5 group-hover:text-[#d0721a] sm:size-6 transition-colors duration-300" />
+                )}
                 <MdArrowDropDown className="text-[#130e3f] group-hover:text-[#d0721a] size-5 sm:size-6 -ml-1 transition-colors duration-300" />
               </button>
               {dropdownOpen && (
-                <ul ref={dropdownRef} className="absolute shadow-[0_3px_10px_rgb(0,0,0,0.2)] right-0 host-regular bg-white top-7 py-2 z-[1000] min-w-full w-max rounded-lg">
-                  {user ? (
+                <ul ref={dropdownRef} className="absolute shadow-[0_3px_15px_rgb(0,0,0,0.5)] right-0 host-regular bg-white top-9 py-2 z-[1000] min-w-full w-[250px] rounded-lg">
+                  {session?.user ? (
                     <>
-                      <li className="py-2.5 px-5 hover:bg-gray-100 hover:text-[#d0721a] cursor-pointer flex items-center gap-2">
-                        <Link href="/account" className='flex items-center gap-2'><FiUser className="size-5" /> My Account </Link>
+                      <li className="py-4 px-5 hover:bg-gray-100 hover:text-[#d0721a] cursor-pointer flex items-center gap-2">
+                        <Link href="/account" className="flex items-center gap-2">
+                          <FiUser className="size-5" /> My Account
+                        </Link>
                       </li>
                       <li
-                        className="py-2.5 px-5 hover:bg-gray-100 cursor-pointer hover:text-[#d0721a] flex items-center gap-2"
-
+                        onClick={handleLogout}
+                        className="py-4 px-5 hover:bg-gray-100 cursor-pointer hover:text-[#d0721a] flex items-center gap-2"
                       >
-                        <Link href="/" className='flex items-center gap-2'><PiPowerBold className="size-5" /> Logout </Link>
+                        <PiPowerBold className="size-5" /> Logout
                       </li>
                     </>
                   ) : (
                     <>
-                      <li className="py-2.5 px-5 hover:bg-gray-100 cursor-pointer border-b hover:text-[#d0721a] flex items-center gap-2">
-                        <Link href="/login" className='flex items-center gap-2'> <PiSignInBold /> Log In</Link>
+                      <li className="py-4 px-5 hover:bg-gray-100 cursor-pointer border-b hover:text-[#d0721a] flex items-center gap-2">
+                        <Link href="/login" onClick={handleLogin} className="flex items-center gap-2">
+                          <PiSignInBold /> Log In
+                        </Link>
                       </li>
-                      <li className="py-2.5 px-5 hover:bg-gray-100 cursor-pointer hover:text-[#d0721a] flex items-center gap-2">
-                        <Link href="/signup" className='flex items-center gap-2'> <FiUserPlus />Sign Up</Link>
+                      <li className="py-4 px-5 hover:bg-gray-100 cursor-pointer hover:text-[#d0721a] flex items-center gap-2">
+                        <Link href="/signup" className="flex items-center gap-2">
+                          <FiUserPlus /> Sign Up
+                        </Link>
                       </li>
                     </>
                   )}
