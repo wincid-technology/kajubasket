@@ -10,15 +10,6 @@ const BestSeller = () => {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    // Mock authentication state (replace with actual auth logic)
-    const fetchAuthState = async () => {
-      const isAuthenticated = false; // Replace with your logic
-      setIsLoggedIn(isAuthenticated);
-    };
-
-    fetchAuthState();
-  }, []);
 
   const handleWishlist = (productId) => {
     if (!isLoggedIn) {
@@ -45,7 +36,7 @@ const BestSeller = () => {
             {bestSeller.map((best) => (
               <div
                 key={best.id}
-                className="group p-6 relative flex justify-between flex-col overflow-hidden rounded-xl shadow-md hover:shadow-xl hover:shadow-slate-300 bg-white transition-all duration-200"
+                className="group p-6 relative flex flex-col bg-white rounded-lg"
               >
                 <button
                   title="Add to Wishlist"

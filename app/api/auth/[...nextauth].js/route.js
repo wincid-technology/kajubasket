@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const authHandler = NextAuth({
+export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -9,15 +9,15 @@ const authHandler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  debug: true, // Enable debug logging
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log("SignIn callback:", { user, account, profile });
+      return true;
+    },
     async redirect({ url, baseUrl }) {
-      // Redirect to account page if signed in
-      return url.startsWith(baseUrl) ? url : `${baseUrl}/account`;
+      console.log("Redirect callback:", { url, baseUrl });
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
-  pages: {
-    signIn: "/login", // Path to your custom sign-in page
-  },
 });
-
-export { authHandler as GET, authHandler as POST };

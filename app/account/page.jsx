@@ -12,25 +12,20 @@ import Image from "next/image";
 
 const AccountSection = () => {
   const [activeTab, setActiveTab] = useState("orders");
-  const { data: session, status } = useSession();
-  const router = useRouter();
+  const { data: session } = useSession();
+  console.log(session)
 
-  // Redirect unauthenticated users to sign-in page
+
   useEffect(() => {
-    if (status === "unauthenticated") {
-      signIn(); // Trigger sign-in flow for unauthenticated users
+    if (session) {
+      fetch("/api/user")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.name); // Ensure this fetches the correct name
+        });
     }
-  }, [status]);
+  }, [session]);
 
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="spinner-border animate-spin border-t-4 border-[#d0721a] border-solid rounded-full w-16 h-16"></div>
-      </div>
-    );
-  }
-
-  // Render content for each tab
   const renderTabContent = () => {
     switch (activeTab) {
       case "orders":
@@ -46,42 +41,44 @@ const AccountSection = () => {
 
   return (
     <div className="max-w-full px-20 mx-auto p-6 bg-white host-regular rounded shadow-md">
-      <h2 className="text-2xl  mb-4 text-center">
-        Welcome, {session?.user?.name || "User"}!
+      <h2 className="text-2xl mb-4 text-center">
+        Welcome, {session?.user?.name || "Guest"}!
       </h2>
-      <p className="text-center mb-6">{session?.user?.email}</p>
 
       {/* Tabs */}
-      <div className="grid grid-cols-3 justify-around mb-6 mt-10 border-b">
+      <div className="grid grid-cols-3 justify-around mb-6 mt-10 border-b" role="tablist">
         <button
           onClick={() => setActiveTab("orders")}
-          className={`py-3 flex items-center justify-center uppercase gap-2 px-10 font-medium border-b-2 transition-colors duration-300 ${
-            activeTab === "orders"
+          role="tab"
+          aria-pressed={activeTab === "orders"}
+          className={`py-3 flex items-center justify-center uppercase gap-2 px-10 font-medium border-b-2 transition-colors duration-300 ${activeTab === "orders"
               ? "border-[#d0721a] bg-[#d0721a]/10 rounded-t-xl text-[#d0721a]"
               : "border-transparent text-gray-500"
-          } hover:text-[#d0721a]`}
+            } hover:text-[#d0721a]`}
         >
           <BsBoxSeamFill className="text-2xl" />
           My Orders
         </button>
         <button
           onClick={() => setActiveTab("wishlist")}
-          className={`py-3 flex items-center justify-center uppercase gap-2 px-10 font-medium border-b-2 transition-colors duration-300 ${
-            activeTab === "wishlist"
+          role="tab"
+          aria-pressed={activeTab === "wishlist"}
+          className={`py-3 flex items-center justify-center uppercase gap-2 px-10 font-medium border-b-2 transition-colors duration-300 ${activeTab === "wishlist"
               ? "border-[#d0721a] bg-[#d0721a]/10 rounded-t-xl text-[#d0721a]"
               : "border-transparent text-gray-500"
-          } hover:text-[#d0721a]`}
+            } hover:text-[#d0721a]`}
         >
           <FaHeart className="text-2xl" />
           My Wishlist
         </button>
         <button
           onClick={() => setActiveTab("cart")}
-          className={`py-3 flex items-center justify-center uppercase gap-2 px-10 font-medium border-b-2 transition-colors duration-300 ${
-            activeTab === "cart"
+          role="tab"
+          aria-pressed={activeTab === "cart"}
+          className={`py-3 flex items-center justify-center uppercase gap-2 px-10 font-medium border-b-2 transition-colors duration-300 ${activeTab === "cart"
               ? "border-[#d0721a] bg-[#d0721a]/10 rounded-t-xl text-[#d0721a]"
               : "border-transparent text-gray-500"
-          } hover:text-[#d0721a]`}
+            } hover:text-[#d0721a]`}
         >
           <FaBasketShopping className="text-2xl" />
           My Cart

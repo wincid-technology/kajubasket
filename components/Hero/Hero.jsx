@@ -39,7 +39,7 @@ const Hero = () => {
 
       </div>
     </div>
-      <div className="grid host-light px-8 lg:grid-cols-3 gap-6 lg:gap-12 z-40 relative md:px-20 -mt-[4rem]">
+      <div className="grid host-light px-8 lg:grid-cols-3 gap-6 lg:gap-12 z-40 relative md:px-16 lg:px-20 -mt-[4rem]">
         <div className="bg-white p-6 shadow-lg shadow-slate-400 rounded-2xl">
           <div className="flex items-center gap-5 mb-4">
             <svg
@@ -52,13 +52,9 @@ const Hero = () => {
             </svg>
             <h3 className="text-gray-800 text-xl host-semibold">Quality Assurance</h3>
           </div>
-          <p className="text-md text-gray-600">
-            Premium quality cashews, carefully selected and packed to ensure
-            the best taste and freshness
+          <p className="text-lg text-gray-600">
+          Kajubasket's Quality Assurance guarantees premium cashew nuts. We meticulously inspect every batch for size, color, and taste, ensuring customer satisfaction with every purchase.
           </p>
-          <Link href="/" className="text-[#d0721a] host-semibold inline-block text-xl float-end hover:underline mt-4">
-            Learn more
-          </Link>
         </div>
 
         <div className="bg-white p-6 shadow-lg shadow-slate-400 rounded-2xl">
@@ -67,13 +63,9 @@ const Hero = () => {
 
             <h3 className="text-gray-800 text-xl  host-semibold ">Sustainable Sourcing</h3>
           </div>
-          <p className="text-md text-gray-600">
-            Ethically sourced cashews from trusted farms, supporting
-            sustainable agriculture.
+          <p className="text-lg text-gray-600">
+          KajuBasket is committed to sustainable sourcing, ensuring our cashews are ethically and responsibly harvested, supporting farmers and protecting the environment.
           </p>
-          <Link href="/" className="text-[#d0721a] host-semibold inline-block text-xl float-end hover:underline mt-4">
-            Learn more
-          </Link>
         </div>
 
         <div className="bg-white p-6 shadow-lg shadow-slate-400 rounded-2xl">
@@ -90,13 +82,9 @@ const Hero = () => {
 
             <h3 className="text-gray-800 text-xl host-semibold">Customer Satisfaction</h3>
           </div>
-          <p className="text-md text-gray-600">
-            Committed to delivering the best service to ensure our
-            customers are always satisfied.
+          <p className="text-lg text-gray-600">
+          At Kajubasket, your satisfaction is our priority. We strive to provide premium quality nuts and exceptional service, ensuring a delightful experience with every purchase.
           </p>
-          <Link href="/" className="text-[#d0721a] host-semibold inline-block text-xl float-end hover:underline mt-4">
-            Learn more
-          </Link>
         </div>
       </div>
       </>

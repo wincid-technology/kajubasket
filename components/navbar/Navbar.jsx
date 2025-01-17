@@ -58,6 +58,7 @@ const Navbar = () => {
               width={10000}
               alt="Logo"
               className="md:w-32 w-24"
+              priority
             />
           </Link>
 
@@ -95,17 +96,8 @@ const Navbar = () => {
                 onClick={toggleDropdown}
                 className="flex items-center bg-transparent text-[#333] text-sm group"
               >
-                {session?.user?.image ? (
-                  <Image
-                    src={session.user.image}
-                    alt="User Profile"
-                    className="rounded-full object-cover w-8 h-8 sm:w-10 sm:h-10"
-                    width={40}
-                    height={40}
-                  />
-                ) : (
                   <FaUserAlt className="text-[#130e3f] size-5 group-hover:text-[#d0721a] sm:size-6 transition-colors duration-300" />
-                )}
+                
                 <MdArrowDropDown className="text-[#130e3f] group-hover:text-[#d0721a] size-5 sm:size-6 -ml-1 transition-colors duration-300" />
               </button>
               {dropdownOpen && (
@@ -121,13 +113,13 @@ const Navbar = () => {
                         onClick={handleLogout}
                         className="py-4 px-5 hover:bg-gray-100 cursor-pointer hover:text-[#d0721a] flex items-center gap-2"
                       >
-                        <PiPowerBold className="size-5" /> Logout
+                        <PiPowerBold className="size-5" />Logout
                       </li>
                     </>
                   ) : (
                     <>
                       <li className="py-4 px-5 hover:bg-gray-100 cursor-pointer border-b hover:text-[#d0721a] flex items-center gap-2">
-                        <Link href="/login" onClick={handleLogin} className="flex items-center gap-2">
+                        <Link href="/login" className="flex items-center gap-2">
                           <PiSignInBold /> Log In
                         </Link>
                       </li>
