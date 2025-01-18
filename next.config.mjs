@@ -11,4 +11,14 @@ const nextConfig = {
   },
 };
 
+// module.exports = {
+//   webpack(config, { isServer }) {
+//     if (!isServer) {
+//       config.devtool = 'source-map'; // Enable source maps for the client-side
+//     }
+//     return config;
+//   },
+// };
+
+
 export default nextConfig;

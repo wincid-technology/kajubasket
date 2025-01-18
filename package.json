@@ -23,7 +23,6 @@
     "mongoose": "^8.9.4",
     "motion": "^11.11.14",
     "next": "^15.1.0",
-    "next-auth": "^4.24.11",
     "node-fetch": "^3.3.2",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-countup": "^6.5.3",

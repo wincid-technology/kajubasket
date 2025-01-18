@@ -1,9 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import { FaInstagram, FaLinkedin } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
-import { BsInstagram } from "react-icons/bs";
-import { IoLogoLinkedin } from "react-icons/io5";
 import Link from 'next/link';
 
 const Footer = () => {
